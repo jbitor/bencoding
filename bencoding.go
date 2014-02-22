@@ -22,6 +22,25 @@ type String string
 type List []Bencodable
 type Dict map[String]Bencodable
 
+// Bencodes a Bencodable value. For example,
+//
+// 	encoded, err := bencoding.Encode(List{
+// 		Int(1),
+// 		Int(2),
+// 		Dict{
+// 			"ab": List{
+// 				String("c"),
+// 				Int(4),
+// 				String("d")
+// 			},
+// 			"aa": Int(1),
+// 		},
+// 		List{},
+// 		Dict{},
+// 	})
+// 	fmt.Sprintf("%v\n", encoded)
+// will output:
+// 	li1ei2ed2:aai1e2:abl1:ci4e1:deeledee
 func Encode(bval Bencodable) ([]byte, error) {
 	buffer := new(bytes.Buffer)
 	err := bval.WriteBencodedTo(buffer)
