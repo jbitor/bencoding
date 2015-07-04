@@ -1,12 +1,5 @@
 package bencoding
 
-import (
-	"log"
-	"os"
-)
+import "github.com/op/go-logging"
 
-var logger *log.Logger
-
-func init() {
-	logger = log.New(os.Stderr, "[  bencoding  ] ", log.Lshortfile)
-}
+var logger = logging.MustGetLogger("bencoding")
