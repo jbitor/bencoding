@@ -50,6 +50,7 @@ func Encode(bval Bencodable) ([]byte, error) {
 	return buffer.Bytes(), nil
 }
 
+// Decodes the object in the bytes, raising an error if there's any extra data after it.
 func Decode(data []byte) (Bencodable, error) {
 	var buffer bytes.Buffer
 
@@ -71,6 +72,25 @@ func Decode(data []byte) (Bencodable, error) {
 	}
 
 	return value, nil
+}
+
+// Decodes the first bencodable value in the bytes, returning it and any extra data after it.
+func DecodeFirst(data []byte) (Bencodable, []byte, error) {
+	var buffer bytes.Buffer
+
+	_, err := buffer.Write(data)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	value, err := decodeNextFrom(&buffer)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	remainder := buffer.Bytes()
+
+	return value, remainder, err
 }
 
 func decodeNextFrom(buffer *bytes.Buffer) (Bencodable, error) {
