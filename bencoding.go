@@ -38,7 +38,7 @@ type Dict map[String]Bencodable
 // 		List{},
 // 		Dict{},
 // 	})
-// 	fmt.Sprintf("%v\n", encoded)
+// 	fmt.Sprintf("%v", encoded)
 // will output:
 // 	li1ei2ed2:aai1e2:abl1:ci4e1:deeledee
 func Encode(bval Bencodable) ([]byte, error) {
